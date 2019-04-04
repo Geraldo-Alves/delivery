@@ -23,17 +23,6 @@ class PaymentController extends Controller
 
             $payment = new MercadoPago\Payment();
 
-            /*$payment->transaction_amount = 141;
-            $payment->token = $request->token;
-            $payment->description = "Ergonomic Silk Shirt";
-            $payment->installments = 1;
-            $payment->payment_method_id = "visa";
-            $payment->payer = array(
-                "email" => "larue.nienow@hotmail.com"
-            );
-
-            $payment->save();*/
-
             $payment->transaction_amount = 5;
             $payment->token = $request->token;
             $payment->description = "Mediocre Plastic Table";

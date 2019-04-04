@@ -22,3 +22,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/payment', 'Payment\PaymentController@index');
 
 Route::post('/pay', 'Payment\PaymentController@pay');
+
+Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(function () {
+    Route::get('/', 'Admin\AdminController@index');
+
+    /**
+     * Empresa
+     */
+    Route::get('/empresa', 'Admin\EmpresaController@index');
+    Route::put('/empresa/create', 'Admin\EmpresaController@put');
+    Route::get('/empresa/create', 'Admin\EmpresaController@create');
+
+    /**
+     * Produtos
+     */
+    Route::get('/produtos', 'Admin\ProdutoController@index');
+});

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class Product
+class Produto
 {
 
     /**
@@ -12,6 +12,6 @@ class Product
      * @var array
      */
     protected $fillable = [
-        'id_product', 'category', 'value', 'description'
+        'id_produto', 'id_categoria', 'valor', 'descricao'
     ];
 }

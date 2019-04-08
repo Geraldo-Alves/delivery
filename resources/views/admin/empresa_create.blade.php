@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Crie sua Empresa
-                    <span class="float-right">{{ isset($empresa->nome) ? isset($empresa->id) : '' }}</span>
+                    <span class="float-right">{{ isset($empresa->nome) ? ($empresa->id) : '' }}</span>
                 </div>
 
                 <div class="card-body">

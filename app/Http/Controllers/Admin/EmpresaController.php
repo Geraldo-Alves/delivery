@@ -29,7 +29,17 @@ class EmpresaController extends Controller
             'logo' => $request->logo,
         ];
 
-        $empresa = Empresa::create($data);
-        return response()->json(['result' => 'success', 'empresa' => $empresa], 200);
+        $empresa = Empresa::where('cnpj', $request->cnpj)->first();
+        if(!empty($empresa)){
+            $empresa->nome = $request->nome;
+            $empresa->descricao = $request->descricao;
+            $empresa->logo= $request->logo;
+            $empresa->save();
+        }else{
+            $empresa = Empresa::updateOrCreate($data);
+        }
+
+        return redirect()->action('Admin\EmpresaController@index');
+        //return response()->json(['result' => 'success', 'empresa' => $empresa], 200);
     }
 }

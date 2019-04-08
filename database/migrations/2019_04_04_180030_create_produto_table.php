@@ -17,6 +17,9 @@ class CreateProdutoTable extends Migration
             $table->bigIncrements('id_produto');
             $table->integer('id_categoria');
             $table->string('nome');
+            $table->double('valor');
+            $table->string('descricao');
+            $table->string('imagem')->nullable();
             $table->timestamps();
 
             $table->foreign('id_categoria')

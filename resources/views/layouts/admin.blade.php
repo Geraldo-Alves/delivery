@@ -40,14 +40,14 @@
         .sidenav a {
             padding: 8px 8px 8px 32px;
             text-decoration: none;
-            font-size: 25px;
-            color: #818181;
+            font-size: 23px;
+            color: #f1f1f1;
             display: block;
             transition: 0.3s;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: #818181;
         }
 
         .sidenav .closebtn {
@@ -66,6 +66,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+            <span style="font-size:30px" onclick="openNav()">&#9776;</span>
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -119,6 +120,16 @@
         </nav>
 
         <main class="py-4">
+            <div>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <div id="mySidenav" class="sidenav">
+                    <a href="/home">|Dashboard</a>
+                    <a href="/admin/empresa">|Empresa</a>
+                    <a href="/admin/produtos">|Produtos</a>
+                    <a href="/admin">|Pedidos</a>
+                    <a href="/admin">|Clientes</a>
+                </div>
+            </div>
             @yield('content')
         </main>
     </div>

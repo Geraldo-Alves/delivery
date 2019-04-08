@@ -30,11 +30,14 @@ Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(func
      * Empresa
      */
     Route::get('/empresa', 'Admin\EmpresaController@index');
-    Route::put('/empresa/create', 'Admin\EmpresaController@put');
     Route::get('/empresa/create', 'Admin\EmpresaController@create');
+    Route::put('/empresa/create', 'Admin\EmpresaController@put');
 
     /**
      * Produtos
      */
     Route::get('/produtos', 'Admin\ProdutoController@index');
+    Route::get('/produtos/{id_categoria}', 'Admin\ProdutoController@produtos_categoria');
+    Route::get('/categorias/all', 'Admin\ProdutoController@categorias');
+    Route::put('/produto/create', 'Admin\ProdutoController@put');
 });

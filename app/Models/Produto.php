@@ -3,8 +3,13 @@
 namespace App\Models;
 
 
-class Produto
+use Illuminate\Database\Eloquent\Model;
+
+class Produto extends Model
 {
+
+    protected $table = 'produto';
+    protected $primaryKey = 'id_produto';
 
     /**
      * The attributes that are mass assignable.
@@ -12,6 +17,6 @@ class Produto
      * @var array
      */
     protected $fillable = [
-        'id_produto', 'id_categoria', 'valor', 'descricao'
+        'nome', 'id_categoria', 'valor', 'descricao', 'imagem',
     ];
 }

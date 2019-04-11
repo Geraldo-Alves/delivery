@@ -24,17 +24,33 @@
             font-family: "Lato", sans-serif;
         }
 
-        .sidenav {
-            height: 100%;
-            width: 220px;
-            position: fixed;
-            z-index: 1;
-            top: 64px;
-            left: 0;
-            background-color: #344050;
-            overflow-x: hidden;
-            transition: 0.3s;
-            padding-top: 0px;
+        @media only screen and (max-width: 900px) {
+            .sidenav {
+                height: 100%;
+                width: 0px;
+                position: fixed;
+                z-index: 1;
+                top: 64px;
+                left: 0;
+                background-color: #344050;
+                overflow-x: hidden;
+                transition: 0.3s;
+                padding-top: 0px;
+            }
+        }
+        @media only screen and (min-width: 900px) {
+            .sidenav {
+                height: 100%;
+                width: 220px;
+                position: fixed;
+                z-index: 1;
+                top: 64px;
+                left: 0;
+                background-color: #344050;
+                overflow-x: hidden;
+                transition: 0.3s;
+                padding-top: 0px;
+            }
         }
 
         .sidenav a {
@@ -75,47 +91,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="/{{ Auth::user()->profile }}">Dashboard</a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
             </div>
         </nav>
 
@@ -128,6 +103,48 @@
                     <a href="/admin/produtos">|Produtos</a>
                     <a href="/admin">|Pedidos</a>
                     <a href="/admin">|Clientes</a>
+
+
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">
+
+                        </ul>
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <a class="dropdown-item" href="/{{ Auth::user()->profile }}">Dashboard</a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+
                 </div>
             </div>
             @yield('content')

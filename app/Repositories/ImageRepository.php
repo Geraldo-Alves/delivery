@@ -20,7 +20,7 @@ class ImageRepository
             $extension = $image->getClientOriginalExtension();
             $fileName = time() . random_int(100, 999) .'.' . $extension;
             $destinationPath = public_path('images/'.$type.'/'.$id.'/');
-            $url = 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$type.'/'.$id.'/'.$fileName;
+            $url = '/images/'.$type.'/'.$id.'/'.$fileName;
             $fullPath = $destinationPath.$fileName;
 
             if (!file_exists($destinationPath)) {

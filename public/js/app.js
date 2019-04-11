@@ -61512,13 +61512,20 @@ function (_Component) {
       var Produtos = function Produtos(props) {
         if (_this2.state.produtos.length > 0) {
           return _this2.state.produtos.map(function (produto, index) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "tabcontent",
               key: index
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
               src: produto.imagem,
-              width: "100px"
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00"));
+              width: "20%",
+              className: "float-left"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+              className: ""
+            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }));
           });
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -61586,7 +61593,7 @@ function (_Component) {
     value: function getCategorias() {
       var _this3 = this;
 
-      var url = 'http://localhost:8000/admin/categorias/all';
+      var url = '/admin/categorias/all';
       var options = {
         method: 'GET'
       };
@@ -61614,7 +61621,7 @@ function (_Component) {
       this.setState({
         cat_selected: id_categoria
       });
-      var url = 'http://localhost:8000/admin/produtos/' + id_categoria;
+      var url = '/admin/produtos/' + id_categoria;
       var options = {
         method: 'GET'
       };

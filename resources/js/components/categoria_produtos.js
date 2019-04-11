@@ -75,10 +75,14 @@ export default class Categoria_produtos extends Component {
         const Produtos = (props) => {
             if(this.state.produtos.length>0){
                 return this.state.produtos.map((produto, index) =>
-                    <div className="tabcontent" key={index}>
-                        <img src={produto.imagem} width="100px"></img>
-                        <h3>{produto.nome}</h3>
-                        <span>R$ {produto.valor},00</span>
+                    <div>
+                        <div className="tabcontent" key={index}>
+                            <img src={produto.imagem} width="20%" className="float-left"></img>
+                            <div className="clear-both"></div>
+                            <h3 className="">{produto.nome}</h3>
+                            <span>R$ {produto.valor},00</span>
+                        </div>
+                        <div className="clear-both"></div>
                     </div>
                 )
             }else{
@@ -142,7 +146,7 @@ export default class Categoria_produtos extends Component {
     }
 
     getCategorias(){
-        var url = 'http://localhost:8000/admin/categorias/all';
+        var url = '/admin/categorias/all';
         var options = { method: 'GET',
         };
         fetch(url, options)
@@ -164,7 +168,7 @@ export default class Categoria_produtos extends Component {
             {cat_selected: id_categoria}
         );
 
-        var url = 'http://localhost:8000/admin/produtos/'+id_categoria;
+        var url = '/admin/produtos/'+id_categoria;
         var options = { method: 'GET',
         };
         fetch(url, options)

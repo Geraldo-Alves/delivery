@@ -23,6 +23,8 @@ Route::get('/payment', 'Payment\PaymentController@index');
 
 Route::post('/pay', 'Payment\PaymentController@pay');
 
+Route::get('/categorias/all', 'Categoria\CategoriaController@categorias');
+
 Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(function () {
     Route::get('/', 'Admin\AdminController@index');
 
@@ -38,6 +40,11 @@ Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(func
      */
     Route::get('/produtos', 'Admin\ProdutoController@index');
     Route::get('/produtos/{id_categoria}', 'Admin\ProdutoController@produtos_categoria');
-    Route::get('/categorias/all', 'Admin\ProdutoController@categorias');
     Route::put('/produto/create', 'Admin\ProdutoController@put');
+    Route::get('/categorias/all', 'Admin\ProdutoController@categorias');
+    Route::put('/categoria/create', 'Admin\CategoriaController@put');
+});
+
+Route::prefix('user')->middleware(['web', 'auth', 'check_profile'])->group(function () {
+    Route::get('/', 'User\UserController@profile');
 });

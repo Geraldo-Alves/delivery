@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,7 @@ class HomeController extends Controller
         if($user->profile=='admin'){
             return redirect()->action('Admin\AdminController@index');
         }
+
         return view('home');
     }
 }

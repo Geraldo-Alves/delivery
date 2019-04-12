@@ -17,6 +17,8 @@ class CreateCategoriaTable extends Migration
             $table->bigIncrements('id_categoria');
             $table->integer('id_empresa');
             $table->string('nome');
+            $table->string('descricao');
+            $table->string('imagem');
             $table->timestamps();
 
             $table->foreign('id_empresa')

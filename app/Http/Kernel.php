@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckProfileNamespace;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Passport\Http\Middleware\CheckClientCredentials;
 
 class Kernel extends HttpKernel
 {
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check_profile' => CheckProfileNamespace::class,
+        'client' => CheckClientCredentials::class,
     ];
 
     /**

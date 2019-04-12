@@ -14,3 +14,4 @@ require('./bootstrap');
  */
 
 require('./components/categoria_produtos');
+require('./components/home');

@@ -11,7 +11,8 @@ export default class Categoria_produtos extends Component {
             produtos: [],
             categorias: [],
             cat_selected: 0,
-            show: false,
+            showModalProd: false,
+            showModalCat: false,
         };
     }
 
@@ -26,7 +27,7 @@ export default class Categoria_produtos extends Component {
     }
 
     render() {
-        const Modal = ({ handleClose, show }) => {
+        const ModalProd = ({ handleClose, show }) => {
             const showHideClassName = show ? 'modal display-block' : 'modal display-none';
 
             return (
@@ -36,7 +37,7 @@ export default class Categoria_produtos extends Component {
                             <button onClick={handleClose} className='btn btn-danger float-right'>X</button>
                         </div>
 
-                        <form method="POST" action="/admin/produto/create" enctype="multipart/form-data">
+                        <form method="POST" action="/admin/produto/create" encType="multipart/form-data">
                             <input type="hidden" value="PUT" name="_method"></input>
                             <input type="hidden" value={this.state.csrf_token} name="_token"></input>
                             <div className="col-md-12">
@@ -66,6 +67,42 @@ export default class Categoria_produtos extends Component {
                                 <input type="submit" value="Adicionar" className="btn btn-success float-right"></input>
                             </div>
 
+                        </form>
+                    </div>
+                </div>
+            )
+        }
+
+        const ModalCat = ({ handleClose, show }) => {
+            const showHideClassName = show ? 'modal display-block' : 'modal display-none';
+
+            return (
+                <div className={showHideClassName}>
+                    <div className='modal-main card'>
+                        <div className='card_body md-col-12'>
+                            <button onClick={handleClose} className='btn btn-danger float-right'>X</button>
+                        </div>
+
+                        <form method="POST" action="/admin/categoria/create" encType="multipart/form-data">
+                            <input type="hidden" value="PUT" name="_method"></input>
+                            <input type="hidden" value={this.state.csrf_token} name="_token"></input>
+
+                            <div className="col-md-12">
+                                <label className="label">Nome</label>
+                                <input className="form-control" type="text" name="nome"></input>
+                            </div>
+                            <div className="col-md-12">
+                                <label className="label">Descrição</label>
+                                <textarea className="form-control" type="text" name="descricao"></textarea>
+                            </div>
+                            <div className="col-md-12">
+                                <label>Imagem</label>
+                                <input type='file' id="primaryImage" name="primaryImage" accept="image/*" className="form-control" />
+                            </div>
+                            <br />
+                            <div className="col-md-12">
+                            <input type="submit" value="Adicionar" className="btn btn-success float-right"></input>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -126,7 +163,8 @@ export default class Categoria_produtos extends Component {
 
         return(
             <div className="card-body">
-                <Modal show={this.state.show} handleClose={this.hideModal.bind(this)} />
+                <ModalProd show={this.state.showModalProd} handleClose={this.hideModal.bind(this)} />
+                <ModalCat show={this.state.showModalCat} handleClose={this.hideModal.bind(this)} />
                 <div className="form-group">
                     <div className="col-md-10">
                         <input name="search" type="text" className="form-control float-left">
@@ -134,7 +172,8 @@ export default class Categoria_produtos extends Component {
                     </div>
                     <button className="btn btn-success">Search</button>
                 </div>
-                <button className="btn btn-primary float-right" onClick={this.showModal.bind(this)}>Adicionar Produto</button>
+                <button className="btn btn-primary float-left" onClick={this.showModalCategoria.bind(this)}>Adicionar Categoria</button>
+                <button className="btn btn-primary float-right" onClick={this.showModalProduto.bind(this)}>Adicionar Produto</button>
                 <br />
                 <br />
                 <div className="tab">
@@ -183,12 +222,18 @@ export default class Categoria_produtos extends Component {
             });
     }
 
-    showModal(){
-        this.setState({ show: true });
+    showModalProduto(){
+        this.setState({ showModalProd: true });
+    }
+    showModalCategoria(){
+        this.setState({ showModalCat: true });
     }
 
     hideModal(){
-        this.setState({ show: false });
+        this.setState({
+            showModalCat: false,
+            showModalProd: false
+        });
     }
 }
 

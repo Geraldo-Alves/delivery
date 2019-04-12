@@ -61303,6 +61303,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/categoria_produtos */ "./resources/js/components/categoria_produtos.js");
 
+__webpack_require__(/*! ./components/home */ "./resources/js/components/home.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -61414,7 +61416,8 @@ function (_Component) {
       produtos: [],
       categorias: [],
       cat_selected: 0,
-      show: false
+      showModalProd: false,
+      showModalCat: false
     };
     return _this;
   }
@@ -61435,7 +61438,7 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var Modal = function Modal(_ref) {
+      var ModalProd = function ModalProd(_ref) {
         var handleClose = _ref.handleClose,
             show = _ref.show;
         var showHideClassName = show ? 'modal display-block' : 'modal display-none';
@@ -61451,7 +61454,7 @@ function (_Component) {
         }, "X")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           method: "POST",
           action: "/admin/produto/create",
-          enctype: "multipart/form-data"
+          encType: "multipart/form-data"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "hidden",
           value: "PUT",
@@ -61492,6 +61495,64 @@ function (_Component) {
           className: "form-control",
           type: "number",
           name: "valor"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-md-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Imagem"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "file",
+          id: "primaryImage",
+          name: "primaryImage",
+          accept: "image/*",
+          className: "form-control"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-md-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "submit",
+          value: "Adicionar",
+          className: "btn btn-success float-right"
+        })))));
+      };
+
+      var ModalCat = function ModalCat(_ref2) {
+        var handleClose = _ref2.handleClose,
+            show = _ref2.show;
+        var showHideClassName = show ? 'modal display-block' : 'modal display-none';
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: showHideClassName
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-main card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card_body md-col-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: handleClose,
+          className: "btn btn-danger float-right"
+        }, "X")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+          method: "POST",
+          action: "/admin/categoria/create",
+          encType: "multipart/form-data"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "hidden",
+          value: "PUT",
+          name: "_method"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "hidden",
+          value: _this2.state.csrf_token,
+          name: "_token"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-md-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "label"
+        }, "Nome"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          className: "form-control",
+          type: "text",
+          name: "nome"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-md-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "label"
+        }, "Descri\xE7\xE3o"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+          className: "form-control",
+          type: "text",
+          name: "descricao"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "col-md-12"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Imagem"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -61568,8 +61629,11 @@ function (_Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Modal, {
-        show: this.state.show,
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalProd, {
+        show: this.state.showModalProd,
+        handleClose: this.hideModal.bind(this)
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalCat, {
+        show: this.state.showModalCat,
         handleClose: this.hideModal.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
@@ -61582,8 +61646,11 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success"
       }, "Search")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary float-left",
+        onClick: this.showModalCategoria.bind(this)
+      }, "Adicionar Categoria"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary float-right",
-        onClick: this.showModal.bind(this)
+        onClick: this.showModalProduto.bind(this)
       }, "Adicionar Produto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "tab"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Produtos, null));
@@ -61640,6 +61707,215 @@ function (_Component) {
       });
     }
   }, {
+    key: "showModalProduto",
+    value: function showModalProduto() {
+      this.setState({
+        showModalProd: true
+      });
+    }
+  }, {
+    key: "showModalCategoria",
+    value: function showModalCategoria() {
+      this.setState({
+        showModalCat: true
+      });
+    }
+  }, {
+    key: "hideModal",
+    value: function hideModal() {
+      this.setState({
+        showModalCat: false,
+        showModalProd: false
+      });
+    }
+  }]);
+
+  return Categoria_produtos;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (document.getElementById('categoria_produtos')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categoria_produtos, null), document.getElementById('categoria_produtos'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/home.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/home.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Home; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Home =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Home, _Component);
+
+  function Home(props) {
+    var _this;
+
+    _classCallCheck(this, Home);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this, props));
+    _this.state = {
+      isLoading: true,
+      produtos: [],
+      categorias: []
+    };
+    return _this;
+  }
+
+  _createClass(Home, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (window.csrf_token != null) {
+        this.setState({
+          csrf_token: window.csrf_token
+        });
+      }
+
+      this.getCategorias();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var Produtos = function Produtos(props) {
+        if (_this2.state.produtos.length > 0) {
+          return _this2.state.produtos.map(function (produto, index) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "tabcontent",
+              key: index
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+              src: produto.imagem,
+              width: "20%",
+              className: "float-left"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+              className: ""
+            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }));
+          });
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "tabcontent"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " Categoria Vazia "));
+        }
+      };
+
+      var Categorias = function Categorias(props) {
+        // View de Categorias
+        if (_this2.state.isLoading) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Carregando... ");
+        } else if (_this2.state.categorias.length > 0) {
+          return _this2.state.categorias.map(function (categoria, index) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "item"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+              className: _this2.state.cat_selected == categoria.id_categoria ? 'active' : '',
+              onClick: _this2.getProdutos.bind(_this2, categoria.id_categoria),
+              key: categoria.id_categoria
+            }, categoria.nome));
+          });
+        }
+
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "float-left"
+        }, " Sem categorias ");
+      };
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "tab"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)));
+    }
+  }, {
+    key: "getCategorias",
+    value: function getCategorias() {
+      var _this3 = this;
+
+      console.log("here");
+      var url = '/categorias/all';
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data);
+
+        if (data != undefined && data.result == "success") {
+          _this3.setState({
+            categorias: data.categorias
+          });
+        }
+
+        _this3.setState({
+          isLoading: false
+        });
+      });
+    }
+  }, {
+    key: "getProdutos",
+    value: function getProdutos(id_categoria) {
+      var _this4 = this;
+
+      this.setState({
+        cat_selected: id_categoria
+      });
+      var url = '/admin/produtos/' + id_categoria;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data != undefined) {
+          _this4.setState({
+            produtos: data
+          });
+        }
+
+        _this4.setState({
+          isLoading: false
+        });
+      });
+    }
+  }, {
     key: "showModal",
     value: function showModal() {
       this.setState({
@@ -61655,13 +61931,13 @@ function (_Component) {
     }
   }]);
 
-  return Categoria_produtos;
+  return Home;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 
 
-if (document.getElementById('categoria_produtos')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categoria_produtos, null), document.getElementById('categoria_produtos'));
+if (document.getElementById('home')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Home, null), document.getElementById('home'));
 }
 
 /***/ }),

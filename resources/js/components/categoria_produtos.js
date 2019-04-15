@@ -152,7 +152,7 @@ export default class Categoria_produtos extends Component {
         const CategoriasOption = (props) =>{
             if(this.state.categorias.length>0){
                 return this.state.categorias.map((categoria, index) =>
-                    <option key={categoria.id_categoria} value={categoria.id_categoria}>{categoria.nome}</option>
+                    <option selected={categoria.id_categoria == this.state.cat_selected ? true : false} key={categoria.id_categoria} value={categoria.id_categoria}>{categoria.nome}</option>
                 )
             }else{
                 return(
@@ -166,14 +166,14 @@ export default class Categoria_produtos extends Component {
                 <ModalProd show={this.state.showModalProd} handleClose={this.hideModal.bind(this)} />
                 <ModalCat show={this.state.showModalCat} handleClose={this.hideModal.bind(this)} />
                 <div className="form-group">
-                    <div className="col-md-10">
+                    <div className="float-left">
                         <input name="search" type="text" className="form-control float-left">
                         </input>
                     </div>
-                    <button className="btn btn-success">Search</button>
+                    <button className="btn btn-success">GO</button>
                 </div>
-                <button className="btn btn-primary float-left" onClick={this.showModalCategoria.bind(this)}>Adicionar Categoria</button>
-                <button className="btn btn-primary float-right" onClick={this.showModalProduto.bind(this)}>Adicionar Produto</button>
+                <button className="btn btn-primary float-left" onClick={this.showModalCategoria.bind(this)}>+ Categoria</button>
+                <button className="btn btn-primary float-right" onClick={this.showModalProduto.bind(this)}>+ Produto</button>
                 <br />
                 <br />
                 <div className="tab">

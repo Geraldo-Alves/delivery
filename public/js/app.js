@@ -61618,6 +61618,7 @@ function (_Component) {
         if (_this2.state.categorias.length > 0) {
           return _this2.state.categorias.map(function (categoria, index) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+              selected: categoria.id_categoria == _this2.state.cat_selected ? true : false,
               key: categoria.id_categoria,
               value: categoria.id_categoria
             }, categoria.nome);
@@ -61638,20 +61639,20 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-10"
+        className: "float-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         name: "search",
         type: "text",
         className: "form-control float-left"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-success"
-      }, "Search")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "GO")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary float-left",
         onClick: this.showModalCategoria.bind(this)
-      }, "Adicionar Categoria"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "+ Categoria"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary float-right",
         onClick: this.showModalProduto.bind(this)
-      }, "Adicionar Produto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "+ Produto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "tab"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Produtos, null));
     }

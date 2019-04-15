@@ -25,6 +25,8 @@ Route::post('/pay', 'Payment\PaymentController@pay');
 
 Route::get('/categorias/all', 'Categoria\CategoriaController@categorias');
 
+Route::get('/produtos_categoria/{id_categoria}', 'Produto\ProdutoController@produtos_categorias');
+
 Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(function () {
     Route::get('/', 'Admin\AdminController@index');
 
@@ -45,6 +47,7 @@ Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(func
     Route::put('/categoria/create', 'Admin\CategoriaController@put');
 });
 
-Route::prefix('user')->middleware(['web', 'auth', 'check_profile'])->group(function () {
-    Route::get('/', 'User\UserController@profile');
+Route::prefix('cliente')->middleware(['web', 'auth', 'check_profile'])->group(function () {
+    Route::get('/', 'Cliente\ClienteController@profile');
+    Route::get('/add_produto/{id_produto}', 'Cliente\CarrinhoController@addProduto');
 });

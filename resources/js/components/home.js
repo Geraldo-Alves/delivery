@@ -10,6 +10,7 @@ export default class Home extends Component {
             isLoading: true,
             produtos: [],
             categorias: [],
+            cat_selected: 0,
         };
     }
 
@@ -28,22 +29,22 @@ export default class Home extends Component {
         const Produtos = (props) => {
             if(this.state.produtos.length>0){
                 return this.state.produtos.map((produto, index) =>
-                    <div>
-                        <div className="tabcontent" key={index}>
+                    <div key={produto.id_produto}>
+                        <div className="tabcontent">
                             <img src={produto.imagem} width="20%" className="float-left"></img>
                             <div className="clear-both"></div>
                             <h3 className="">{produto.nome}</h3>
                             <span>R$ {produto.valor},00</span>
+                            <button className="btn btn-primary float-right" onClick={this.addProduto.bind(this, produto.id_produto)}>Add</button>
                         </div>
-                        <div className="clear-both"></div>
                     </div>
-                )
+            )
             }else{
                 return (
                     <div className="tabcontent">
-                        <span> Categoria Vazia </span>
-                    </div>
-                )
+                    <span> Categoria Vazia </span>
+                </div>
+            )
             }
         }
 
@@ -56,7 +57,7 @@ export default class Home extends Component {
             }
             else if(this.state.categorias.length>0){
                 return this.state.categorias.map((categoria, index) =>
-                    <div className="item">
+                    <div className="item" key={index}>
                         <button className={this.state.cat_selected == categoria.id_categoria ? 'active' : ''} onClick={this.getProdutos.bind(this, categoria.id_categoria)} key={categoria.id_categoria}>{categoria.nome}</button>
                     </div>
                 )
@@ -73,6 +74,7 @@ export default class Home extends Component {
                 <div className="tab">
                     <Categorias />
                 </div>
+                <Produtos />
             </div>
         );
     }
@@ -89,7 +91,9 @@ export default class Home extends Component {
                 if(data!=undefined && data.result=="success"){
                     this.setState({
                         categorias: data.categorias,
+                        cat_selected: data.categorias[0].id_categoria,
                     });
+                    this.getProdutos(data.categorias[0].id_categoria);
                 }
                 this.setState({ isLoading: false });
             });
@@ -100,7 +104,27 @@ export default class Home extends Component {
             {cat_selected: id_categoria}
         );
 
-        var url = '/admin/produtos/'+id_categoria;
+        var url = '/produtos_categoria/'+id_categoria;
+        var options = { method: 'GET',
+        };
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                if(data!=undefined){
+                    this.setState({
+                        produtos: data,
+                    });
+                }
+                this.setState({ isLoading: false });
+            });
+    }
+
+    addProduto(id_produto){
+        this.setState(
+            {adding_product: true}
+        );
+
+        var url = '/cliente/add_produto/'+id_produto;
         var options = { method: 'GET',
         };
         fetch(url, options)

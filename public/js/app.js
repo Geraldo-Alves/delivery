@@ -61791,7 +61791,8 @@ function (_Component) {
     _this.state = {
       isLoading: true,
       produtos: [],
-      categorias: []
+      categorias: [],
+      cat_selected: 0
     };
     return _this;
   }
@@ -61815,9 +61816,10 @@ function (_Component) {
       var Produtos = function Produtos(props) {
         if (_this2.state.produtos.length > 0) {
           return _this2.state.produtos.map(function (produto, index) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "tabcontent",
-              key: index
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              key: produto.id_produto
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "tabcontent"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
               src: produto.imagem,
               width: "20%",
@@ -61826,9 +61828,10 @@ function (_Component) {
               className: "clear-both"
             }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
               className: ""
-            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "clear-both"
-            }));
+            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+              className: "btn btn-primary float-right",
+              onClick: _this2.addProduto.bind(_this2, produto.id_produto)
+            }, "Add")));
           });
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -61844,7 +61847,8 @@ function (_Component) {
         } else if (_this2.state.categorias.length > 0) {
           return _this2.state.categorias.map(function (categoria, index) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "item"
+              className: "item",
+              key: index
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
               className: _this2.state.cat_selected == categoria.id_categoria ? 'active' : '',
               onClick: _this2.getProdutos.bind(_this2, categoria.id_categoria),
@@ -61862,7 +61866,7 @@ function (_Component) {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "tab"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Produtos, null));
     }
   }, {
     key: "getCategorias",
@@ -61881,8 +61885,11 @@ function (_Component) {
 
         if (data != undefined && data.result == "success") {
           _this3.setState({
-            categorias: data.categorias
+            categorias: data.categorias,
+            cat_selected: data.categorias[0].id_categoria
           });
+
+          _this3.getProdutos(data.categorias[0].id_categoria);
         }
 
         _this3.setState({
@@ -61898,7 +61905,7 @@ function (_Component) {
       this.setState({
         cat_selected: id_categoria
       });
-      var url = '/admin/produtos/' + id_categoria;
+      var url = '/produtos_categoria/' + id_categoria;
       var options = {
         method: 'GET'
       };
@@ -61912,6 +61919,32 @@ function (_Component) {
         }
 
         _this4.setState({
+          isLoading: false
+        });
+      });
+    }
+  }, {
+    key: "addProduto",
+    value: function addProduto(id_produto) {
+      var _this5 = this;
+
+      this.setState({
+        adding_product: true
+      });
+      var url = '/cliente/add_produto/' + id_produto;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data != undefined) {
+          _this5.setState({
+            produtos: data
+          });
+        }
+
+        _this5.setState({
           isLoading: false
         });
       });

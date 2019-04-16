@@ -28,6 +28,7 @@
 
 /* Style the tab content */
 .tabcontent {
+    width: 100%;
     display: block;
     padding: 6px 12px;
     border: 1px solid #ccc;
@@ -35,6 +36,7 @@
 }
 
 .tabcontent {
+    background-color: #fff;
     animation: fadeEffect 1s; /* Fading effect takes 1 second */
 }
 
@@ -86,4 +88,21 @@
 
 .clear-both{
     clear: both;
+}
+
+.carrinho{
+    width: 100%;
+    float: left;
+    margin-bottom: 2em;
+}
+
+.qtd_carrinho{
+    font-size: 1.5em;
+}
+
+.span-border{
+    font-size: 1.5em;
+    margin-top: 0.1em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }

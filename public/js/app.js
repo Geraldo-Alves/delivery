@@ -61792,7 +61792,10 @@ function (_Component) {
       isLoading: true,
       produtos: [],
       categorias: [],
-      cat_selected: 0
+      cat_selected: 0,
+      carrinho: [],
+      total_carrinho: 0,
+      showModal: false
     };
     return _this;
   }
@@ -61806,6 +61809,7 @@ function (_Component) {
         });
       }
 
+      this.getCarrinho();
       this.getCategorias();
     }
   }, {
@@ -61813,25 +61817,103 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      var ProdutosCarrinho = function ProdutosCarrinho() {
+        return _this2.state.carrinho.map(function (produto, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: index
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "tabcontent float-left"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: produto.imagem,
+            width: "10%",
+            className: "float-left"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "clear-both float-left"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+            className: "float-left"
+          }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "clear-both"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "float-left"
+          }, "R$ ", produto.valor, ",00"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-danger float-right",
+            onClick: _this2.removeProduto.bind(_this2, produto.id_produto)
+          }, "Remove")));
+        });
+      };
+
+      var ModalCarrinho = function ModalCarrinho(_ref) {
+        var handleClose = _ref.handleClose,
+            show = _ref.show;
+        var showHideClassName = show ? 'modal display-block' : 'modal display-none';
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: showHideClassName
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-main card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card_body md-col-12"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: handleClose,
+          className: "btn btn-primary float-right"
+        }, "X")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProdutosCarrinho, null)));
+      };
+
+      var Carrinho = function Carrinho(props) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "carrinho",
+          onClick: _this2.showModal.bind(_this2)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "float-right qtd_carrinho"
+        }, _this2.state.carrinho.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "icons/cart.svg",
+          width: "30px",
+          className: "float-right"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Total: R$ ", _this2.state.total_carrinho, ",00"));
+      };
+
+      var QtdMng = function QtdMng(props) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-success float-right",
+          onClick: _this2.addProduto.bind(_this2, props.produto)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "icons/plus.svg"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "float-right span-border"
+        }, props.qtd), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-primary float-right",
+          onClick: _this2.removeProduto.bind(_this2, props.produto)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "icons/minus.svg",
+          className: "float-right"
+        })));
+      };
+
       var Produtos = function Produtos(props) {
         if (_this2.state.produtos.length > 0) {
+          var qtd = 0;
           return _this2.state.produtos.map(function (produto, index) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               key: produto.id_produto
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "tabcontent"
+              className: "tabcontent float-left"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
               src: produto.imagem,
               width: "20%",
               className: "float-left"
             }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "clear-both"
+              className: "clear-both float-left"
             }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-              className: ""
-            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "R$ ", produto.valor, ",00"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-              className: "btn btn-primary float-right",
-              onClick: _this2.addProduto.bind(_this2, produto.id_produto)
-            }, "Add")));
+              className: "float-left"
+            }, produto.nome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+              className: "float-left"
+            }, "R$ ", produto.valor, ",00"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(QtdMng, {
+              qtd: 0,
+              produto: produto.id_produto
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "clear-both"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
           });
         } else {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -61863,8 +61945,11 @@ function (_Component) {
       };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ModalCarrinho, {
+        show: this.state.showModal,
+        handleClose: this.hideModal.bind(this)
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Carrinho, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "tab"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Categorias, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Produtos, null));
     }
@@ -61873,7 +61958,6 @@ function (_Component) {
     value: function getCategorias() {
       var _this3 = this;
 
-      console.log("here");
       var url = '/categorias/all';
       var options = {
         method: 'GET'
@@ -61881,8 +61965,6 @@ function (_Component) {
       fetch(url, options).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data);
-
         if (data != undefined && data.result == "success") {
           _this3.setState({
             categorias: data.categorias,
@@ -61928,39 +62010,78 @@ function (_Component) {
     value: function addProduto(id_produto) {
       var _this5 = this;
 
-      this.setState({
-        adding_product: true
-      });
       var url = '/cliente/add_produto/' + id_produto;
       var options = {
         method: 'GET'
       };
       fetch(url, options).then(function (response) {
         return response.json();
-      }).then(function (data) {
-        if (data != undefined) {
+      }).then(function (carrinho) {
+        if (carrinho != undefined) {
           _this5.setState({
-            produtos: data
+            carrinho: carrinho.produtos,
+            total_carrinho: carrinho.total
           });
         }
+      });
+    }
+  }, {
+    key: "removeProduto",
+    value: function removeProduto(id_produto) {
+      var _this6 = this;
 
-        _this5.setState({
-          isLoading: false
-        });
+      var url = '/cliente/remove_produto/' + id_produto;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (carrinho) {
+        if (carrinho != undefined) {
+          _this6.setState({
+            carrinho: carrinho.produtos,
+            total_carrinho: carrinho.total
+          });
+
+          if (carrinho.produtos.length == 0) {
+            _this6.hideModal();
+          }
+        }
+      });
+    }
+  }, {
+    key: "getCarrinho",
+    value: function getCarrinho() {
+      var _this7 = this;
+
+      var url = '/cliente/carrinho';
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (carrinho) {
+        if (carrinho != undefined && carrinho.produtos != 0) {
+          //console.log(carrinho.produtos);
+          _this7.setState({
+            carrinho: carrinho.produtos,
+            total_carrinho: carrinho.total
+          });
+        }
       });
     }
   }, {
     key: "showModal",
     value: function showModal() {
       this.setState({
-        show: true
+        showModal: true
       });
     }
   }, {
     key: "hideModal",
     value: function hideModal() {
       this.setState({
-        show: false
+        showModal: false
       });
     }
   }]);

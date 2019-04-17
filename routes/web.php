@@ -48,8 +48,15 @@ Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(func
 });
 
 Route::prefix('cliente')->middleware(['web', 'auth', 'check_profile'])->group(function () {
-    Route::get('/', 'Cliente\ClienteController@profile');
+    /**
+     * 'api'
+     */
     Route::get('/add_produto/{id_produto}', 'Cliente\CarrinhoController@addProduto');
     Route::get('/remove_produto/{id_produto}', 'Cliente\CarrinhoController@removeProduto');
     Route::get('/carrinho', 'Cliente\CarrinhoController@carrinho');
+
+    /**
+     * view
+     */
+    Route::get('/pedido', 'Cliente\PedidoController@index');
 });

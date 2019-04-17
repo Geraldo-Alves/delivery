@@ -13,6 +13,7 @@ export default class Home extends Component {
             cat_selected: 0,
             carrinho: [],
             total_carrinho: 0,
+            qtd_produtos: 0,
             showModal: false,
         };
     }
@@ -29,41 +30,11 @@ export default class Home extends Component {
     }
 
     render() {
-        const ProdutosCarrinho = () => {
-            return this.state.carrinho.map((produto, index) =>
-                <div key={index}>
-                    <div className="tabcontent float-left">
-                        <img src={produto.imagem} width="10%" className="float-left"></img>
-                        <div className="clear-both float-left"></div>
-                        <h5 className="float-left">{produto.nome}</h5>
-                        <div className="clear-both"></div>
-                        <span className="float-left">R$ {produto.valor},00</span>
-                        <button className="btn btn-danger float-right" onClick={this.removeProduto.bind(this, produto.id_produto)}>Remove</button>
-                    </div>
-                </div>
-            )
-        }
-
-        const ModalCarrinho = ({ handleClose, show }) => {
-            const showHideClassName = show ? 'modal display-block' : 'modal display-none';
-
-            return (
-                <div className={showHideClassName}>
-                    <div className='modal-main card'>
-                        <div className='card_body md-col-12'>
-                            <button onClick={handleClose} className='btn btn-primary float-right'>X</button>
-                        </div>
-                        <ProdutosCarrinho />
-                    </div>
-                </div>
-            )
-        }
-
         const Carrinho = (props) => {
             return (
-                <div className="carrinho" onClick={this.showModal.bind(this)}>
-                    <span className="float-right qtd_carrinho">{ this.state.carrinho.length }</span>
-                    <img src="icons/cart.svg" width="30px" className="float-right"></img>
+                <div className="carrinho">
+                    <span className="float-right qtd_carrinho">{ this.state.qtd_produtos }</span>
+                    <a href="/cliente/pedido"><img src="icons/cart.svg" width="30px" className="float-right"></img></a>
                     <span>Total: R$ { this.state.total_carrinho },00</span>
                 </div>
             )
@@ -90,9 +61,9 @@ export default class Home extends Component {
                             <h3 className="float-left">{produto.nome}</h3>
                             <div className="clear-both"></div>
                             <span className="float-left">R$ {produto.valor},00</span>
-                            <QtdMng qtd={0} produto={produto.id_produto} />
                             <div className="clear-both"></div>
                             <br />
+                            <button className="btn btn-success float-right" onClick={this.addProduto.bind(this, produto.id_produto)}>Add</button>
                         </div>
                     </div>
             )
@@ -128,7 +99,6 @@ export default class Home extends Component {
 
         return(
             <div className="">
-                <ModalCarrinho show={this.state.showModal} handleClose={this.hideModal.bind(this)} />
                 <Carrinho />
                 <div className="tab">
                     <Categorias />
@@ -185,8 +155,9 @@ export default class Home extends Component {
             .then(carrinho => {
                 if(carrinho!=undefined){
                     this.setState({
-                        carrinho: carrinho.produtos,
-                        total_carrinho: carrinho.total,
+                        carrinho: carrinho.pedido.produtos,
+                        total_carrinho: carrinho.pedido.total,
+                        qtd_produtos: carrinho.pedido.qtd_produtos,
                     });
                 }
             });
@@ -201,10 +172,11 @@ export default class Home extends Component {
             .then(carrinho => {
                 if(carrinho!=undefined){
                     this.setState({
-                        carrinho: carrinho.produtos,
-                        total_carrinho: carrinho.total,
+                        carrinho: carrinho.pedido.produtos,
+                        total_carrinho: carrinho.pedido.total,
+                        qtd_produtos: carrinho.pedido.qtd_produtos,
                     });
-                    if(carrinho.produtos.length==0){
+                    if(carrinho.pedido.produtos.length==0){
                         this.hideModal();
                     }
                 }
@@ -219,10 +191,10 @@ export default class Home extends Component {
             .then(response => response.json())
             .then(carrinho => {
                 if(carrinho!=undefined && carrinho.produtos!=0){
-                    //console.log(carrinho.produtos);
                     this.setState({
-                        carrinho: carrinho.produtos,
-                        total_carrinho: carrinho.total,
+                        carrinho: carrinho.pedido.produtos,
+                        total_carrinho: carrinho.pedido.total,
+                        qtd_produtos: carrinho.pedido.qtd_produtos,
                     });
                 }
             });

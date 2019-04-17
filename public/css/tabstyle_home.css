@@ -64,6 +64,7 @@
         top:50%;
         left:50%;
         transform: translate(-50%,-50%);
+        overflow-y: scroll;
     }
 }
 @media only screen and (min-width: 600px) {
@@ -75,6 +76,7 @@
         top:50%;
         left:50%;
         transform: translate(-50%,-50%);
+        overflow-y: scroll;
     }
 }
 
@@ -105,4 +107,8 @@
     margin-top: 0.1em;
     margin-left: 0.5em;
     margin-right: 0.5em;
+}
+
+.back{
+    margin-bottom: 5%;
 }

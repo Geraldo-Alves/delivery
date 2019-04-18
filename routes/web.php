@@ -45,6 +45,17 @@ Route::prefix('admin')->middleware(['web', 'auth', 'check_profile'])->group(func
     Route::put('/produto/create', 'Admin\ProdutoController@put');
     Route::get('/categorias/all', 'Admin\ProdutoController@categorias');
     Route::put('/categoria/create', 'Admin\CategoriaController@put');
+
+    /**
+     * Pedidos
+     */
+    Route::get('/pedidos', 'Admin\PedidoController@index');
+    //Route::get('/pedidos/{at}', 'Admin\PedidoController@pedidosAt');
+    Route::get('/pedidos/{status}', 'Admin\PedidoController@pedidosByStatus');
+
+    Route::get('/pedido/proximo_status/{id_pedido}', 'Admin\PedidoController@proximoStatus');
+    Route::get('/pedido/status_anterior/{id_pedido}', 'Admin\PedidoController@statusAnterior');
+
 });
 
 Route::prefix('cliente')->middleware(['web', 'auth', 'check_profile'])->group(function () {

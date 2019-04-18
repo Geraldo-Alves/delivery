@@ -18,7 +18,7 @@ class CreatePedidoTable extends Migration
             $table->integer('id_usuario');
             $table->double('total');
             $table->integer('qtd_produtos');
-            $table->string('status', 1);
+            $table->string('status', 15);
             $table->string('endereco', 250)->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

@@ -20,7 +20,7 @@ class CarrinhoController extends Controller
     {
         $user = Auth::user();
         // Pedido
-        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'C')->first();
+        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'criado')->first();
 
         // Produto adicionado
         $produto = Produto::find($request->id_produto);
@@ -30,7 +30,7 @@ class CarrinhoController extends Controller
             // status C = Criado
             $novo_pedido = [
                 'id_usuario' => $user->getAuthIdentifier(),
-                'status' => 'C',
+                'status' => 'criado',
                 'total' => $produto->valor,
                 'qtd_produtos' => 1
             ];
@@ -94,7 +94,7 @@ class CarrinhoController extends Controller
     {
         $user = Auth::user();
         // Pedido
-        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'C')->first();
+        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'criado')->first();
 
         // Atualiza o valor do pedido
         $pedido->total-=$pedido->produto($request->id_produto)->valor;
@@ -137,7 +137,7 @@ class CarrinhoController extends Controller
     public function carrinho(Request $request){
         $user = Auth::user();
         // Pedido
-        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'C')->first();
+        $pedido = Pedido::where('id_usuario', $user->getAuthIdentifier())->where('status', 'criado')->first();
         if(!empty($pedido)){
             // Atribui a quantidade pra cada produto adicionado
             for($i=0;$i<sizeof($pedido->produtos);$i++){

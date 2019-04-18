@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <a href="produtos">Pedidos</a>
+                    <a href="/admin/pedidos">Pedidos</a>
                     </a>
                 </div>
             </div>

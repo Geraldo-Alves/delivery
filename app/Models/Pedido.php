@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
@@ -25,5 +26,9 @@ class Pedido extends Model
 
     public function produtos(){
         return $this->hasManyThrough(Produto::class, Produtos_Pedido::class, 'id_pedido', 'id_produto', 'id_pedido', 'id_produto');
+    }
+
+    public function cliente(){
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
     }
 }

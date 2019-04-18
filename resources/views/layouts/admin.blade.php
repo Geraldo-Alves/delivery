@@ -131,11 +131,11 @@
             <div>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <div id="mySidenav" class="sidenav">
-                    <a href="/home">|Dashboard</a>
-                    <a href="/admin/empresa">|Empresa</a>
-                    <a href="/admin/produtos">|Produtos</a>
-                    <a href="/admin">|Pedidos</a>
-                    <a href="/admin">|Clientes</a>
+                    <a href="/home">Dashboard</a>
+                    <a href="/admin/pedidos">Pedidos</a>
+                    <a href="/admin/produtos">Produtos</a>
+                    <a href="/admin/clientes">Clientes</a>
+                    <a href="/admin/empresa">Empresa</a>
                 </div>
             </div>
             @yield('content')

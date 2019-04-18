@@ -61307,6 +61307,8 @@ __webpack_require__(/*! ./components/home */ "./resources/js/components/home.js"
 
 __webpack_require__(/*! ./components/pedido */ "./resources/js/components/pedido.js");
 
+__webpack_require__(/*! ./components/admin_pedidos */ "./resources/js/components/admin_pedidos.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -61364,6 +61366,202 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/admin_pedidos.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/admin_pedidos.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AdminPedidos; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var AdminPedidos =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(AdminPedidos, _Component);
+
+  function AdminPedidos(props) {
+    var _this;
+
+    _classCallCheck(this, AdminPedidos);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AdminPedidos).call(this, props));
+    _this.state = {
+      isLoading: true,
+      pedidos: [],
+      status: 'criado'
+    };
+    return _this;
+  }
+
+  _createClass(AdminPedidos, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (window.csrf_token != null) {
+        this.setState({
+          csrf_token: window.csrf_token
+        });
+      }
+
+      this.getPedidos(this.state.status);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var Pedidos = function Pedidos() {
+        return _this2.state.pedidos.map(function (pedido, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: index
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+            className: "float-left"
+          }, pedido.cliente.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "clear-both"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "float-left"
+          }, "R$ ", pedido.total, ",00")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "float-left"
+          }, pedido.status)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-danger",
+            onClick: _this2.setPedidoStatusAnterior.bind(_this2, pedido.id_pedido)
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: "/icons/previous.svg"
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn btn-primary",
+            onClick: _this2.setPedidoProximoStatus.bind(_this2, pedido.id_pedido)
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+            src: "/icons/next.svg"
+          }))));
+        });
+      };
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "label"
+      }, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control col-md-8",
+        onChange: this.setStatus.bind(this),
+        value: this.state.status
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "criado"
+      }, "Criado"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "em_producao"
+      }, "Em produ\xE7\xE3o"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "pronto"
+      }, "Pronto"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "entrega"
+      }, "Entrega"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "concluido"
+      }, "Conclu\xEDdo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "cancelado"
+      }, "Cancelado"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Pedido"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Op\xE7\xF5es")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Pedidos, null))));
+    }
+  }, {
+    key: "setStatus",
+    value: function setStatus(event) {
+      this.setState({
+        status: event.target.value
+      });
+      this.getPedidos(event.target.value);
+    }
+  }, {
+    key: "getPedidos",
+    value: function getPedidos($status) {
+      var _this3 = this;
+
+      var url = '/admin/pedidos/' + $status;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data != undefined && data.result == 'success') {
+          _this3.setState({
+            pedidos: data.pedidos
+          });
+        }
+      });
+    }
+  }, {
+    key: "setPedidoProximoStatus",
+    value: function setPedidoProximoStatus($id_pedido) {
+      var _this4 = this;
+
+      var url = '/admin/pedido/proximo_status/' + $id_pedido;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data != undefined && data.result == 'success') {
+          _this4.getPedidos(_this4.state.status);
+        }
+      });
+    }
+  }, {
+    key: "setPedidoStatusAnterior",
+    value: function setPedidoStatusAnterior($id_pedido) {
+      var _this5 = this;
+
+      var url = '/admin/pedido/status_anterior/' + $id_pedido;
+      var options = {
+        method: 'GET'
+      };
+      fetch(url, options).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data != undefined && data.result == 'success') {
+          _this5.getPedidos(_this5.state.status);
+        }
+      });
+    }
+  }]);
+
+  return AdminPedidos;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+if (document.getElementById('pedidos')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AdminPedidos, null), document.getElementById('pedidos'));
+}
 
 /***/ }),
 

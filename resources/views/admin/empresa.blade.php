@@ -21,7 +21,8 @@
                             <input type="hidden" value="put" name="_method">
                             <div class="form-group">
                                 <label class="col-form-label" for="cnpj">Cnpj</label>
-                                <input class="form-control" type="text" name="cnpj" value="{{$empresa->cnpj}}" disabled>
+                                <input class="form-control" type="text" name="" value="{{$empresa->cnpj}}" disabled>
+                                <input type="hidden" name="cnpj" value="{{$empresa->cnpj}}">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label" for="nome">Nome</label>

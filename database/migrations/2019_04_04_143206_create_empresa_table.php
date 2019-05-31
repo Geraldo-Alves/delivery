@@ -19,7 +19,7 @@ class CreateEmpresaTable extends Migration
             $table->string('nome');
             $table->string('descricao');
             $table->string('logo')->nullable();
-            $table->integer('id_admin')->unsigned();
+            $table->unsignedBigInteger('id_admin');
             $table->timestamps();
 
             $table->foreign('id_admin')

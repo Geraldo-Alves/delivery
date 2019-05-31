@@ -14,8 +14,8 @@ class CreateProdutosPedidoTable extends Migration
     public function up()
     {
         Schema::create('produtos_pedido', function (Blueprint $table) {
-            $table->integer('id_produto');
-            $table->integer('id_pedido');
+            $table->integer('id_produto')->unsigned();
+            $table->integer('id_pedido')->unsigned();
             $table->integer('qtd');
             $table->timestamps();
 
